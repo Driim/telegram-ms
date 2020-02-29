@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.TCP,
+    transport: Transport.REDIS,
   });
   app.listen(() => console.log('Microservice is listening'));
 }

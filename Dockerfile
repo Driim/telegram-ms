@@ -5,6 +5,7 @@ WORKDIR /home/node/app
 
 # npm package config
 COPY package*.json ./
+COPY .env .
 
 # install dependency
 RUN npm install

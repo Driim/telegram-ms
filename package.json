@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "redis": "docker run --name message-broker -p 6379:6379 -d redis"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.14",
@@ -28,6 +29,7 @@
     "@types/telebot": "^1.2.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
+    "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",

@@ -5,7 +5,16 @@ import { TRANSPORT_SERVICE } from '../app.constants';
 import { TelegramService } from './services/telegram.service';
 
 @Module({
-  imports: [ClientsModule.register([{ name: TRANSPORT_SERVICE, transport: Transport.TCP }])],
+  imports: [
+    ClientsModule.register([
+      {
+        name: TRANSPORT_SERVICE,
+        transport: Transport.REDIS,
+        /* TODO: move to configuration */
+        options: { url: 'redis://localhost:6379' },
+      },
+    ]),
+  ],
   controllers: [BotController],
   providers: [TelegramService],
 })
