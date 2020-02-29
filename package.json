@@ -1,8 +1,8 @@
 {
-  "name": "swatcher-microservice",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "swatcher-telegram-microservice",
+  "version": "0.1.0",
+  "description": "Telegram Microservice for SwatcherBot",
+  "author": "Dmitriy Falko <dmitriy.falko@gmail.com>",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
