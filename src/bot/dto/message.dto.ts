@@ -1,11 +1,13 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsObject } from 'class-validator';
 
 export class MessageDto {
-    @IsInt()
-    user: number;
+  @IsInt()
+  user: number;
 
-    @IsString()
-    message: string;
-    
-    opts?: any;
+  @IsString()
+  message: string;
+
+  @IsOptional()
+  @IsObject()
+  opts?: unknown;
 }

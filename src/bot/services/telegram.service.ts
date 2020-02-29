@@ -1,34 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as TeleBot from 'telebot';
-  
-const BOT_API_KEY = '';
 
 @Injectable()
 export class TelegramService {
-    private readonly bot: TeleBot;
-    
-    constructor(private readonly configService: ConfigService) {
-        this.bot = new TeleBot(this.configService.get<string>('BOT_TOKEN')); /* new TeleBot could throw error */
-    }
+  private readonly bot: TeleBot;
 
-    onApplicationBootstrap() {
-        this.bot.start();
-    }
+  constructor(private readonly configService: ConfigService) {
+    this.bot = new TeleBot(
+      this.configService.get<string>('BOT_TOKEN'),
+    ); /* new TeleBot could throw error */
+  }
 
-    incomeHandler(func) {
-        this.bot.on('text', func);
-    }
+  onApplicationBootstrap(): void {
+    this.bot.start();
+  }
 
-    eventHandler(func) {
-        this.bot.on('event', func);
-    }
+  incomeHandler(func: TeleBot.genericCb): void {
+    this.bot.on('text', func);
+  }
 
-    sendMessage(user: number, message: string, opts?: any): Promise<void> {
-        return this.bot.sendMessage(user, message, opts);
-    }
+  eventHandler(func: TeleBot.genericCb): void {
+    this.bot.on('event', func);
+  }
 
-    sendPhoto(user: number, img: string, opts?: any): Promise<void> {
-        return this.bot.sendPhoto(user, img, opts);
-    }
+  sendMessage(user: number, message: string, opts?: unknown): Promise<void> {
+    return this.bot.sendMessage(user, message, opts);
+  }
+
+  sendPhoto(user: number, img: string, opts?: unknown): Promise<void> {
+    return this.bot.sendPhoto(user, img, opts);
+  }
 }

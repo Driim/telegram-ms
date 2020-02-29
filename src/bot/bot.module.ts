@@ -5,10 +5,8 @@ import { TRANSPORT_SERVICE } from '../app.constants';
 import { TelegramService } from './services/telegram.service';
 
 @Module({
-    imports: [
-        ClientsModule.register([{ name: TRANSPORT_SERVICE, transport: Transport.TCP } ]),
-    ],
-    controllers: [ BotController ],
-    providers: [ TelegramService ]
+  imports: [ClientsModule.register([{ name: TRANSPORT_SERVICE, transport: Transport.TCP }])],
+  controllers: [BotController],
+  providers: [TelegramService],
 })
 export class BotModule {}

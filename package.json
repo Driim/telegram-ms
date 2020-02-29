@@ -26,8 +26,6 @@
     "@nestjs/microservices": "^6.11.5",
     "@nestjs/platform-express": "^6.10.14",
     "@types/telebot": "^1.2.1",
-    "amqp-connection-manager": "^3.2.0",
-    "amqplib": "^0.5.5",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "reflect-metadata": "^0.1.13",
