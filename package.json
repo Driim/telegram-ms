@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "redis": "docker run --name message-broker -p 6379:6379 -d redis"
+    "redis": "docker run --name message-broker -p 6379:6379 -d redis",
+    "mongo": "docker run --name mongodb -p 27017-27019:27017-27019 -d mongo"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.14",
@@ -29,6 +30,7 @@
     "@types/telebot": "^1.2.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
+    "dashbot": "^11.1.0",
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",

@@ -4,6 +4,8 @@ import { TRANSPORT_SERVICE, TgErrorPattern } from '../../app.constants';
 import { MessageDto } from '../dto/message.dto';
 import { TelegramService } from '../services/telegram.service';
 import { Observable } from 'rxjs';
+import dashbot from 'dashbot';
+import { ConfigService } from '@nestjs/config';
 
 interface TelegramError {
   toString(): string;
@@ -17,13 +19,21 @@ interface HandleError {
 @Controller()
 export class BotController {
   private readonly logger = new Logger(BotController.name);
+  private dashbot = null;
 
   constructor(
     @Inject(TRANSPORT_SERVICE) private readonly client: ClientProxy,
     private readonly bot: TelegramService,
+    private readonly configService: ConfigService,
   ) {
     this.bot.incomeHandler(this.handleIncome);
     this.bot.eventHandler(this.handleEvent);
+
+    const apiKey = configService.get<string>('DASHBOT_API_KEY');
+
+    if (apiKey) {
+      this.dashbot = dashbot(apiKey).universal;
+    }
   }
 
   async onApplicationBootstrap(): Promise<void> {
@@ -36,6 +46,10 @@ export class BotController {
   };
 
   handleIncome = (message: unknown): Observable<void> => {
+    if (this.dashbot) {
+      this.dashbot.logIncoming(message);
+    }
+
     return this.client.emit('received_message', message);
   };
 
@@ -52,6 +66,10 @@ export class BotController {
   @EventPattern('send_message')
   @UsePipes(new ValidationPipe({ transform: true }))
   async handleSendMessage(data: MessageDto): Promise<void> {
+    if (this.dashbot) {
+      this.dashbot.logOutgoing(data);
+    }
+
     await this.bot
       .sendMessage(data.user, data.message, data.opts)
       .catch(error => this.handleError(error, data.user));
@@ -60,6 +78,10 @@ export class BotController {
   @EventPattern('send_photo')
   @UsePipes(new ValidationPipe({ transform: true }))
   async handleSendPhoto(data: MessageDto): Promise<void> {
+    if (this.dashbot) {
+      this.dashbot.logOutgoing(data);
+    }
+
     await this.bot
       .sendPhoto(data.user, data.message, data.opts)
       .catch(error => this.handleError(error, data.user));
