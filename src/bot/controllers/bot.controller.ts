@@ -16,6 +16,12 @@ interface HandleError {
   error: TelegramError;
 }
 
+class TelegramMessage {
+  id: number;
+  username: string;
+  message: string;
+}
+
 @Controller()
 export class BotController {
   private readonly logger = new Logger(BotController.name);
@@ -29,10 +35,12 @@ export class BotController {
     this.bot.incomeHandler(this.handleIncome);
     this.bot.eventHandler(this.handleEvent);
 
-    const apiKey = configService.get<string>('DASHBOT_API_KEY');
+    const apiKey = this.configService.get<string>('DASHBOT_API_KEY');
 
     if (apiKey) {
       this.dashbot = dashbot(apiKey).universal;
+    } else {
+      this.logger.log('Working without dashbot');
     }
   }
 
@@ -45,10 +53,16 @@ export class BotController {
     this.logger.warn(event);
   };
 
-  handleIncome = (message: unknown): Observable<void> => {
+  handleIncome = (data: any): Observable<void> => {
     if (this.dashbot) {
-      this.dashbot.logIncoming(message);
+      this.dashbot.logIncoming(data);
     }
+
+    const message: TelegramMessage = {
+      id: data.from.id,
+      username: data.from.username,
+      message: data.text,
+    };
 
     return this.client.emit('received_message', message);
   };

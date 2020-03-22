@@ -7,9 +7,11 @@ export class TelegramService {
   private readonly bot: TeleBot;
 
   constructor(private readonly configService: ConfigService) {
-    this.bot = new TeleBot(
-      this.configService.get<string>('BOT_TOKEN'),
-    ); /* new TeleBot could throw error */
+    const proxy = this.configService.get<string>('PROXY_URL');
+    this.bot = new TeleBot({
+      token: this.configService.get<string>('BOT_TOKEN'),
+      polling: { proxy },
+    }); /* new TeleBot could throw error */
   }
 
   onApplicationBootstrap(): void {

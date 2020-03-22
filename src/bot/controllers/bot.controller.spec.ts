@@ -3,6 +3,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BotController } from './bot.controller';
 import { TRANSPORT_SERVICE } from '../../app.constants';
 import { TelegramService } from '../services/telegram.service';
+import { ConfigModule } from '@nestjs/config';
 
 /* Mocking TelegramService */
 jest.mock('../services/telegram.service');
@@ -15,7 +16,10 @@ describe('Checking BotController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ClientsModule.register([{ name: TRANSPORT_SERVICE, transport: Transport.TCP }])],
+      imports: [
+        ClientsModule.register([{ name: TRANSPORT_SERVICE, transport: Transport.TCP }]),
+        ConfigModule.forRoot({ isGlobal: true }),
+      ],
       controllers: [BotController],
       providers: [TelegramService],
     })
