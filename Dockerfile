@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:12
 
 # set a directory for the app
 WORKDIR /home/node/app
@@ -11,7 +11,7 @@ COPY .env .
 RUN npm install
 
 # Copy sources
-COPY . .
+COPY src src
 
 # Run application
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:prod" ]
