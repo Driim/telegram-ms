@@ -13,7 +13,8 @@ interface TelegramError {
 
 interface HandleError {
   user: number;
-  error: TelegramError;
+  error: string;
+  type: string;
 }
 
 class TelegramMessage {
@@ -74,7 +75,7 @@ export class BotController {
       return this.client.emit<void, number>('handle_block', user);
     }
 
-    return this.client.emit<void, HandleError>('handle_error', { user, error });
+    return this.client.emit<void, HandleError>('handle_error', { user, error: error.toString(), type: 'TMS:send' });
   }
 
   @EventPattern('send_message')

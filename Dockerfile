@@ -14,4 +14,4 @@ RUN npm install
 COPY src src
 
 # Run application
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "start" ]
