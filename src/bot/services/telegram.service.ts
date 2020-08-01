@@ -26,11 +26,19 @@ export class TelegramService {
     this.bot.on('event', func);
   }
 
-  sendMessage(user: number, message: string, opts?: unknown): Promise<void> {
-    return this.bot.sendMessage(user, message, opts);
+  sendMessage(user: number, message: string, opts?: any): Promise<void> {
+    let replyMarkup = undefined;
+    if (opts) {
+      replyMarkup = this.bot.keyboard(opts.keyboard, {
+        resize: opts.resizeKeyboard,
+        once: opts.oneTimeKeyboard,
+        remove: opts.removeKeyboard
+      });
+    }
+    return this.bot.sendMessage(user, message, { replyMarkup });
   }
 
-  sendPhoto(user: number, img: string, opts?: unknown): Promise<void> {
+  sendPhoto(user: number, img: string, opts?: any): Promise<void> {
     return this.bot.sendPhoto(user, img, opts);
   }
 }

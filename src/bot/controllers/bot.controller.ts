@@ -40,8 +40,6 @@ export class BotController {
 
     if (apiKey) {
       this.dashbot = dashbot(apiKey).universal;
-    } else {
-      this.logger.log('Working without dashbot');
     }
   }
 
