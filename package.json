@@ -1,6 +1,6 @@
 {
   "name": "swatcher-telegram-microservice",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Telegram Microservice for SwatcherBot",
   "author": "Dmitriy Falko <dmitriy.falko@gmail.com>",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "redis": "docker run --name message-broker -p 6379:6379 -d redis",
-    "mongo": "docker run --name mongodb -p 27017-27019:27017-27019 -d mongo"
+    "coveralls": "jest --runInBand --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "@nestjs/common": "^6.11.11",
@@ -47,6 +47,7 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
+    "coveralls": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
