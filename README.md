@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Driim/telegram-ms.svg?branch=master)](https://travis-ci.com/Driim/telegram-ms)
+[![Build Status](https://travis-ci.com/Driim/telegram-ms.svg?token=ZYhz5oAcTL2qvhTwptRL&branch=master)](https://travis-ci.com/Driim/telegram-ms)
 
 Telegram microservice for SwatcherBot
 
