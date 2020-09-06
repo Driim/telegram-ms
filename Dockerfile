@@ -6,13 +6,12 @@ WORKDIR /home/node/app
 # npm package config
 COPY package*.json ./
 COPY .env ./
-COPY tsconfig.* ./
 
 # install dependency
-RUN npm install
+RUN npm ci --only=prod
 
 # Copy sources
-COPY src src
+COPY dist dist
 
 # Run application
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:prod" ]
