@@ -59,7 +59,7 @@ export class BotController {
 
     const message: TelegramMessage = {
       id: data.from.id,
-      username: data.from.username,
+      username: data.from.username ?? data.from.first_name,
       message: data.text,
     };
 
